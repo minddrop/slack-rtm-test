@@ -1,11 +1,11 @@
 const { RTMClient } = require('@slack/client')
 
-const token = 'TOKENを入れてください'
+const token = process.env['BOT_USER_OAUTH_ACCESS_TOKEN']
 const rtm = new RTMClient(token)
 rtm.start()
 
-const directBotId = 'チャンネルIDを入れてください'
-const conversationId = 'チャンネルIDを入れて下しあ'
+const directBotId = process.env['BOT_CHANNEL_ID']
+const conversationId = process.env['BUSHITUSCHAN_CHANNEL_ID']
 
 function postMessage(text, channelId) {
   rtm
