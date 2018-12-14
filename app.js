@@ -10,6 +10,7 @@ rtm.on('ready', () => {
 const directBotId = process.env['BOT_CHANNEL_ID']
 const conversationId = process.env['BUSHITUSCHAN_CHANNEL_ID']
 
+// モジュール化すると他のjsファイルから呼び出すことができ、ここでもモジュール化前と同じように使うこともできる
 module.exports = function postMessage(text, channelId) {
   rtm
     .sendMessage(text, channelId)
