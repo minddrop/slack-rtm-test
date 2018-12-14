@@ -3,22 +3,26 @@ const { RTMClient } = require('@slack/client')
 const token = process.env['BOT_USER_OAUTH_ACCESS_TOKEN']
 const rtm = new RTMClient(token)
 rtm.start()
+rtm.on('ready', () => {
+  console.log('部室ちゃん、準備完了いたしました！')
+})
 
 const directBotId = process.env['BOT_CHANNEL_ID']
 const conversationId = process.env['BUSHITUSCHAN_CHANNEL_ID']
 
-function postMessage(text, channelId) {
+module.exports = function postMessage(text, channelId) {
   rtm
     .sendMessage(text, channelId)
     .then(res => {
-      // `res` contains information about the posted message
       console.log('Message sent: ', res.ts)
     })
     .catch(console.error)
 }
 
-postMessage("I'm born!", directBotId)
+// postMessage("I'm born!", directBotId)
 
 rtm.on('message', message => {
-  postMessage(message.text, conversationId)
+  if (!message.bot_id) {
+    console.log(`${message.user}が${message.text}っていったよ`)
+  }
 })
